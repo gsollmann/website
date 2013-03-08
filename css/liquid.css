@@ -2,3 +2,23 @@
 
 	background-color: blue;
 }
+
+.navbar .brand {
+	background-color: transparent;
+	position: relative;
+}
+
+.navbar .brand span{
+	background: url(../img/logo-blue.png) no-repeat center;
+
+	display: block;
+	position: absolute;
+	top: -5px;
+	width: 115px;
+	height: 90px;
+	z-index: -1;
+	-webkit-transition: all 0.2s;
+	-moz-transition: all 0.2s;
+	-o-transition: all 0.2s;
+	transition: all 0.2s;
+}
