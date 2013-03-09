@@ -25,3 +25,23 @@
 	-o-transition: all 0.2s;
 	transition: all 0.2s;
 }
+
+.row-fluid .span1 {
+	width: 75px;
+	height: 50px;
+	background-color: #99BCBD;
+	border-radius: 5px;
+	margin-left: 0;
+	margin-right: 29px;
+	margin-bottom: 29px;
+}
+
+.row-fluid .span1 img {
+	margin-left: 27px;
+	margin-top: 11px;
+}
+
+.row-fluid.jacobsRow {
+	padding: 0;
+	
+}
