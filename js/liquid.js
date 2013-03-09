@@ -1,21 +1,26 @@
-Parse.User.logIn("calebl", "password", {
-  success: function(user) {
-	addContainer();
-	getForms();
-
-  },
-  error: function(user, error) {
-  	//TODO: show the login page
-
-    // The login failed. Check error to see why.
-  }
-});
-
+// Parse.User.logIn("calebl", "password", {
+//   success: function(user) {
+// 	// addContainer();
+// 	// getForms();
+// 
+//   },
+//   error: function(user, error) {
+//   	//TODO: show the login page
+// 
+//     // The login failed. Check error to see why.
+//   }
+// });
+	$(document).ready(function(){
+		addContainer();
+		$('.well').disableSelection();
+		$('.well').selectable({filter: "li"});
+		
+	});
 function addContainer() {
 	for(i=0; i<9; i++) {
-		$("#addFile").append("<div class='span1'><img src='img/glyphicons_029_notes_2.png' /></div>");
+		$("#addFile").append("<li class='span1'><img src='img/glyphicons_029_notes_2.png' /></li>");
 	}
-	
+		
 };
 
 function getForms(){
