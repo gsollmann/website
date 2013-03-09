@@ -3,6 +3,10 @@
 	background-color: blue;
 }
 
+body {
+	background: url(../img/section5-bg1.jpg);
+}
+
 .navbar .brand {
 	background-color: transparent;
 	position: relative;
@@ -29,11 +33,16 @@
 .row-fluid .span1 {
 	width: 75px;
 	height: 50px;
-	background-color: #99BCBD;
+	background-color: #41b7d8;
 	border-radius: 5px;
 	margin-left: 0;
 	margin-right: 29px;
 	margin-bottom: 29px;
+	background-image: -webkit-linear-gradient(top,rgb(240, 240, 240),rgb(163, 163, 163));
+}
+
+.row-fluid .span1:hover{
+	 box-shadow: 0px 0px 18px #41b7d8;
 }
 
 .row-fluid .span1 img {
