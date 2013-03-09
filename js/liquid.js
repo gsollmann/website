@@ -1,4 +1,3 @@
-
 Parse.User.logIn("calebl", "password", {
   success: function(user) {
 	getForms();
