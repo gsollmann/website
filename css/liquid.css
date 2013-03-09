@@ -3,6 +3,10 @@
 	background-color: blue;
 }
 
+.hide {
+	display: none;
+}
+
 body {
 	background: url(../img/section5-bg1.jpg);
 }
