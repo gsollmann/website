@@ -1,5 +1,4 @@
 .login {
-
 	background-color: blue;
 }
 
@@ -21,7 +20,6 @@ body {
 .navbar .brand span{
 	background: url(../img/logo-blue.png) no-repeat center;
 	background-size: 80px 60px;
-
 	display: block;
 	position: absolute;
 	top: -18px;
@@ -67,6 +65,7 @@ body:before
 .row-fluid .span1 {
 	width: 75px;
 	height: 50px;
+	position: relative;
 	background-color: #41b7d8;
 	border-radius: 5px;
 	margin-left: 0;
@@ -74,10 +73,6 @@ body:before
 	margin-bottom: 29px;
 	background-image: -webkit-linear-gradient(top,rgb(240, 240, 240),rgb(163, 163, 163));
 }
-
-/*.row-fluid .span1:hover{
-	 box-shadow: 0px 0px 18px #41b7d8;
-}*/
 
 .row-fluid .span1 img {
 	margin-left: 27px;
@@ -93,6 +88,19 @@ body:before
 	box-shadow: 0px 0px 18px #41b7d8;
 }
 
-/*.icon-cloud-download {
-	font-size: 56px;
-}*/
+h2 {
+	font-family: 'Oswald', sans-serif;
+	text-transform: uppercase;
+	font-weight: 700;
+	margin-left: 25px;
+	text-shadow: 1px 1px 1px white;
+	color: #333333;;
+	color: rgba(51, 51, 51, 0.75);
+	
+}
+
+li.span1 span {
+	position: absolute;
+	top: 56px;
+	left: 0px;
+}
