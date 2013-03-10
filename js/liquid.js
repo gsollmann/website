@@ -32,7 +32,7 @@ var Form = Parse.Object.extend('forms');
 var FormCollection = Parse.Collection.extend({
 	model: Form,
 	query: (new Parse.Query(Form)).equalTo("user", Parse.User.current()),
-	comparator: function(object){return object.get('createdAt');}
+	comparator: function(object){return -1 * object.createdAt;}
 });
 var form_collection = new FormCollection();
 
@@ -55,17 +55,32 @@ function getForms(){
 }
 
 function addFormContainers(collection){
-	collection.forEach(function(form){
-		var $form_el = $("<li class='span1'><img src='img/glyphicons_029_notes_2.png' /></li>");
-		var form_name = form.get('form_name');
+	grouped_by_date = collection.groupBy(function(form){ return form.createdAt.toLocaleDateString() });
 
-		$form_el.data({
-			name: form.get('form_name'),
-			headers: form.get('headers'),
-			contents: form.get('contents'), 
-			created_at: form.get('createdAt')});
-		$("#addFile").append($form_el);
+
+	_.each(grouped_by_date, function(date_group,date){
+		var $header = $('<h4>' + date + '</h4>').css('text-decoration','underline');
+		$('div.form-div').append($header);
+		var $date_ul = $("<ul class='row-fluid formRow'></ul>");
+		date_group.forEach(function(form){
+			var form_name = form.get('form_name');
+			var createdAt = form.createdAt.toLocaleDateString()
+
+			var $form_el = $("<li class='span1'><img src='img/glyphicons_029_notes_2.png' /><span>" + createdAt + "</span></li>");
+
+
+			$form_el.data({
+				name: form.get('form_name'),
+				headers: form.get('headers'),
+				contents: form.get('contents'), 
+				createdAt: createdAt});
+			$date_ul.append($form_el);
+		});
+
+		$('div.form-div').append($date_ul);
 	});
+
+
 }
 
 function updateDownloadLink(){
