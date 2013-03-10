@@ -92,7 +92,8 @@ body {
 }
 
 h2,
-h3 {
+h3,
+h3 .select-all {
 	font-family: 'Oswald', sans-serif;
 	text-transform: uppercase;
 	font-weight: 700;
@@ -101,6 +102,15 @@ h3 {
 	color: #333333;;
 	color: rgba(51, 51, 51, 0.75);
 	
+}
+
+h3 .select-all {
+	margin-left: 10px;
+	font-size: 20px;
+}
+
+h3 .select-all:hover{
+	color: black;
 }
 
 li.span1 span {
