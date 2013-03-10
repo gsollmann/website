@@ -54,12 +54,11 @@ function getForms(){
 }
 
 function addFormContainers(collection){
-<<<<<<< HEAD
 	grouped_by_date = collection.groupBy(function(form){ return form.createdAt.toLocaleDateString() });
 
 
 	_.each(grouped_by_date, function(date_group,date){
-		var $header = $('<h4>' + date + '</h4>').css('text-decoration','underline');
+		var $header = $('<h3><i class="icon-calendar"></i> ' + date + '</h3>');
 		$('div.form-div').append($header);
 		var $date_ul = $("<ul class='row-fluid formRow'></ul>");
 		date_group.forEach(function(form){
@@ -78,20 +77,6 @@ function addFormContainers(collection){
 		});
 
 		$('div.form-div').append($date_ul);
-=======
-	collection.forEach(function(form){
-		var form_name = form.get('form_name');
-		var createdAt = form.createdAt.toLocaleDateString();
-		
-		var $form_el = $("<li class='span1'><img src='img/glyphicons_029_notes_2.png' /><span>" + createdAt + "</span></li>");
-		
-		$form_el.data({
-			name: form.get('form_name'),
-			headers: form.get('headers'),
-			contents: form.get('contents'), 
-			created_at: createdAt});
-		$("#addFile").append($form_el);
->>>>>>> cde30ca1f2700b9500976e13074e09080ea18d6f
 	});
 
 
