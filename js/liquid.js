@@ -11,19 +11,35 @@ Parse.User.logIn("calebl", "password", {
 });
 
 $(document).ready(function(){
-	$('.well').disableSelection();
-	$('.well').selectable({
-		filter: "li",
-		selected: updateDownloadLink,
-		unselected: function(event,ui){
-			var $dl_el = $('.navbar .dl_link');
-			if($('li.ui-selected').length > 0){
-				$dl_el.closest('li').show();
-			} else {
-				$dl_el.closest('li').hide();
-			}
+	$('body').disableSelection();
+
+
+	$('body').on('click','h3 .select-all',function(){
+		var $icon_check = $(this).find('i');
+		var $form_list = $(this).closest('h3').next('ul');
+		if($icon_check.is('.icon-check-empty')){
+			$icon_check.removeClass('icon-check-empty').addClass('icon-check');
+			$form_list.find('.ui-selectee').addClass('ui-selected');
+
+		} else {
+			$icon_check.removeClass('icon-check').addClass('icon-check-empty');
+			$form_list.find('.ui-selectee').removeClass('ui-selected');
 		}
+
+		updateDownloadLink();
 	});
+	// $('.form-div').selectable({
+	// 	filter: "li",
+	// 	selected: updateDownloadLink,
+	// 	unselected: function(event,ui){
+	// 		var $dl_el = $('.navbar .dl_link');
+	// 		if($('li.ui-selected').length > 0){
+	// 			$dl_el.closest('li').show();
+	// 		} else {
+	// 			$dl_el.closest('li').hide();
+	// 		}
+	// 	}
+	// });
 	
 });
 
@@ -58,7 +74,7 @@ function addFormContainers(collection){
 
 
 	_.each(grouped_by_date, function(date_group,date){
-		var $header = $('<h3><i class="icon-calendar"></i> ' + date + '</h3>');
+		var $header = $('<h3><i class="icon-calendar"></i> ' + date + '<span class="select-all"><i class="icon-check-empty"></i></span></h3>');
 		$('div.form-div').append($header);
 		var $date_ul = $("<ul class='row-fluid formRow'></ul>");
 		date_group.forEach(function(form){
@@ -77,6 +93,20 @@ function addFormContainers(collection){
 		});
 
 		$('div.form-div').append($date_ul);
+
+		$date_ul.selectable({
+			filter: "li",
+			selected: updateDownloadLink,
+			unselected: function(event,ui){
+				var $dl_el = $('.navbar .dl_link');
+				if($('li.ui-selected').length > 0){
+					$dl_el.closest('li').show();
+				} else {
+					$dl_el.closest('li').hide();
+				}
+				updateDownloadLink();
+			}
+		});
 	});
 
 
