@@ -31,7 +31,7 @@ var Form = Parse.Object.extend('forms');
 var FormCollection = Parse.Collection.extend({
 	model: Form,
 	query: (new Parse.Query(Form)).equalTo("user", Parse.User.current()),
-	comparator: function(object){return object.get('createdAt');}
+	comparator: function(object){return -1 * object.createdAt;}
 });
 var form_collection = new FormCollection();
 
@@ -55,14 +55,16 @@ function getForms(){
 
 function addFormContainers(collection){
 	collection.forEach(function(form){
-		var $form_el = $("<li class='span1'><img src='img/glyphicons_029_notes_2.png' /></li>");
 		var form_name = form.get('form_name');
-
+		var createdAt = form.createdAt.toLocaleDateString();
+		
+		var $form_el = $("<li class='span1'><img src='img/glyphicons_029_notes_2.png' /><span>" + createdAt + "</span></li>");
+		
 		$form_el.data({
 			name: form.get('form_name'),
 			headers: form.get('headers'),
 			contents: form.get('contents'), 
-			created_at: form.get('createdAt')});
+			created_at: createdAt});
 		$("#addFile").append($form_el);
 	});
 }
