@@ -10,9 +10,13 @@ Parse.User.logIn("calebl", "password", {
   }
 });
 
+
+
 $(document).ready(function(){
 	$('body').disableSelection();
-
+	
+	// Dropdown menu for user preferences & log out
+	$('.dropdown-toggle').dropdown();
 
 	$('body').on('click','h3 .select-all',function(){
 		var $icon_check = $(this).find('i');
@@ -48,6 +52,7 @@ var FormCollection = Parse.Collection.extend({
 	model: Form,
 	query: (new Parse.Query(Form)).equalTo("user", Parse.User.current()),
 	comparator: function(object){return -1 * object.createdAt;}
+
 });
 var form_collection = new FormCollection();
 
@@ -56,10 +61,15 @@ function getForms(){
 	var currentUser = Parse.User.current();
 	if (currentUser) {
 	    // do stuff with the user
+	    
 		form_collection.fetch({
 			success: function(collection) {
 				addFormContainers(collection);
-			},
+			// Polling with Parse
+				setTimeout(getForms, 5000);
+				var html_text = addFormContainers(collection);
+				$('.span12.well.form-div.container-fluid').html(html_text);
+					},
 			error: function(collection, error) {
 			// The collection could not be retrieved.
 			}
@@ -72,17 +82,18 @@ function getForms(){
 function addFormContainers(collection){
 	grouped_by_date = collection.groupBy(function(form){ return form.createdAt.toLocaleDateString() });
 
-
+	var $container = $("<span>");
 	_.each(grouped_by_date, function(date_group,date){
 		var $header = $('<h3><i class="icon-calendar"></i> ' + date + '<span class="select-all"><i class="icon-check-empty"></i></span></h3>');
-		$('div.form-div').append($header);
+		$container.append($header);
+		
 		var $date_ul = $("<ul class='row-fluid formRow'></ul>");
 		date_group.forEach(function(form){
 			var form_name = form.get('form_name');
 			var createdAt = form.createdAt.toLocaleDateString()
 
 			var $form_el = $("<li class='span1'><img src='img/glyphicons_029_notes_2.png' /><span>" + createdAt + "</span></li>");
-
+			$container.append($date_ul, $form_el);
 
 			$form_el.data({
 				name: form.get('form_name'),
@@ -92,7 +103,7 @@ function addFormContainers(collection){
 			$date_ul.append($form_el);
 		});
 
-		$('div.form-div').append($date_ul);
+	
 
 		$date_ul.selectable({
 			filter: "li",
@@ -108,7 +119,7 @@ function addFormContainers(collection){
 			}
 		});
 	});
-
+		return $container;
 
 }
 
