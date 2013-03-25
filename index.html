@@ -66,6 +66,22 @@
     Parse.initialize("VavhF59WWgkNKZ49HYO71rPss9meOtzfTwoYNEkk", "7EBsef50qiN5YlMwIDDha7s4ecMRSNWpUv4E3rAm");
   </script>
   <script type="text/javascript" src="js/liquid.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      Parse.User.logIn("calebl", "password", {
+        success: function(user) {
+          timeout = 10000;
+          getForms();
+
+        },
+        error: function(user, error) {
+          //TODO: show the login page
+
+          // The login failed. Check error to see why.
+        }
+      });
+    });
+  </script>
 </body>
 
 </html>

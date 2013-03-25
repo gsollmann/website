@@ -19,9 +19,9 @@
 
     html { height: 100% }
     body { height: 100%; }
-    #main {height: 90%;}
+    #main {height: 100%;}
     div.container-fluid {height: 90%;}
-    div.row-fluid{ height: 95%;}
+    div.row-fluid{ height: 100%;}
 
     #map-canvas { height: 100%; margin-top: 20px;}
     #map-canvas img {
@@ -85,34 +85,25 @@
   <script type="text/javascript">
     Parse.initialize("VavhF59WWgkNKZ49HYO71rPss9meOtzfTwoYNEkk", "7EBsef50qiN5YlMwIDDha7s4ecMRSNWpUv4E3rAm");
   </script>
+  <script type="text/javascript" src="js/liquid.js"></script>
   <script type="text/javascript">
-    var map = null;
-    function initialize() {
-      var mapOptions = {
-        center: new google.maps.LatLng(39.103215, -84.511828),
-        zoom: 8,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-      };
-      map = new google.maps.Map(document.getElementById("map-canvas"),
-          mapOptions);
-    }
-    function loadScript() {
-      var script = document.createElement("script");
-      script.type = "text/javascript";
-      script.src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyA54-wexDDrFR1i_EBmcaIy2F48DcvVA90&sensor=false&callback=initialize";
-      $('body').append(script);
-    }
-    function addMarker(){
-      var myLatlng = new google.maps.LatLng(39.103215, -84.511828);
-      var marker = new google.maps.Marker({
-          position: myLatlng,
-          map: map,
-          title:"Hello World!"
-      });
-    }
     $(document).ready(function(){
-      loadScript();
-    })
+      Parse.User.logIn("calebl", "password", {
+        success: function(user) {
+          add_markers = true;
+          timeout = 15000;
+          forms = getForms();
+
+          
+
+        },
+        error: function(user, error) {
+          //TODO: show the login page
+
+          // The login failed. Check error to see why.
+        }
+      });
+    });
   </script>
 </body>
 

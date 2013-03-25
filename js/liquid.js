@@ -1,17 +1,3 @@
-Parse.User.logIn("calebl", "password", {
-  success: function(user) {
-	getForms();
-
-  },
-  error: function(user, error) {
-  	//TODO: show the login page
-
-    // The login failed. Check error to see why.
-  }
-});
-
-
-
 $(document).ready(function(){
 	$('body').disableSelection();
 	
@@ -32,6 +18,8 @@ $(document).ready(function(){
 
 		updateDownloadLink();
 	});
+
+	loadScript();
 	// $('.form-div').selectable({
 	// 	filter: "li",
 	// 	selected: updateDownloadLink,
@@ -55,6 +43,8 @@ var FormCollection = Parse.Collection.extend({
 
 });
 var form_collection = new FormCollection();
+var timeout = -1;
+var add_markers = false;
 
 function getForms(){
 
@@ -66,10 +56,19 @@ function getForms(){
 			success: function(collection) {
 				addFormContainers(collection);
 			// Polling with Parse
-				setTimeout(getForms, 5000);
+				if(timeout > 0)
+					setTimeout(getForms, timeout);
 				var html_text = addFormContainers(collection);
 				$('.span12.well.form-div.container-fluid').html(html_text);
-					},
+
+				if(add_markers){
+					collection.forEach(function(form){
+		            if(form.get('latitude') !== null)
+			            addMarker(form.get('latitude'),form.get('longitude'),form.get('formId'));
+					})
+				}
+
+			},
 			error: function(collection, error) {
 			// The collection could not be retrieved.
 			}
@@ -140,4 +139,29 @@ function updateDownloadLink(){
 	var output = headers + '\n' + contents.join('\n');
 	var uri = 'data:application/csv;charset=UTF-8,' + encodeURIComponent(output);
   	$dl_el.attr('href',uri).attr('download','form_data.csv');
+}
+
+//Google Maps functions
+function initialize() {
+  var mapOptions = {
+    center: new google.maps.LatLng(39.103215, -84.511828),
+    zoom: 6,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+  map = new google.maps.Map(document.getElementById("map-canvas"),
+      mapOptions);
+}
+function loadScript() {
+  var script = document.createElement("script");
+  script.type = "text/javascript";
+  script.src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyA54-wexDDrFR1i_EBmcaIy2F48DcvVA90&sensor=false&callback=initialize";
+  $('body').append(script);
+}
+function addMarker(lat, lng, form_id){
+  var myLatlng = new google.maps.LatLng(lat, lng);
+  var marker = new google.maps.Marker({
+      position: myLatlng,
+      map: map,
+      title: form_id.toString()
+  });
 }
