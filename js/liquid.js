@@ -162,6 +162,6 @@ function addMarker(lat, lng, form_id){
   var marker = new google.maps.Marker({
       position: myLatlng,
       map: map,
-      title: form_id.toString()
+      title: lat + ', ' + lng
   });
 }
